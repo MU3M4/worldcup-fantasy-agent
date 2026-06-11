@@ -1,5 +1,6 @@
-streamlit>=1.35.0
-pymongo[srv]>=4.6.0
-google-cloud-aiplatform>=1.60.0
-dnspython>=2.6.0
-google-cloud-discoveryengine
+streamlit
+pymongo
+nest_asyncio
+requests
+google-adk
+google-genai
