@@ -154,7 +154,17 @@ def get_matches_tool(limit: int = 10, group: str = None) -> dict:
     """Get World Cup matches from database"""
     if not MONGO_OK: return {"error": "MongoDB not connected"}
     try:
-        query = {"group": group.upper()} if group else {}
+        query = {}
+        if group:
+            # Try multiple possible formats
+            group_upper = group.upper()
+            query = {
+                "$or": [
+                    {"group": group_upper},
+                    {"group": f"Group {group_upper}"},
+                    {"group": {"$regex": f".*{group_upper}.*", "$options": "i"}}
+                ]
+            }
         matches = list(db.matches.find(query).limit(limit))
         for m in matches:
             m["_id"] = str(m["_id"])
