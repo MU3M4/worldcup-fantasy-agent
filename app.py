@@ -4,12 +4,10 @@ from datetime import datetime
 import json
 import os
 import asyncio
-import nest_asyncio
 import requests
 from zoneinfo import ZoneInfo
 
-# Apply nest_asyncio to allow asyncio.run() inside Streamlit
-nest_asyncio.apply()
+
 
 # ADK Imports
 from google.adk.agents import LlmAgent

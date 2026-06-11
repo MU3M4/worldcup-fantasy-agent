@@ -1,6 +1,5 @@
 streamlit
 pymongo
-nest_asyncio
 requests
 google-adk
 google-genai
