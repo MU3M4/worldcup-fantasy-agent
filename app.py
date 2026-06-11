@@ -30,7 +30,6 @@ st.set_page_config(
 MONGODB_URI  = "mongodb+srv://emmanuelmuemam_db_user:gcnzdWdqZ6eqeXoI@cluster0.jvcntai.mongodb.net/?retryWrites=true&w=majority"
 GCP_PROJECT  = "project-d12993b2-a144-455d-ae0"
 GCP_LOCATION = "us-central1"
-GEMINI_API_KEY = "AQ.Ab8RN6Iduvz_mKzCqGizBfndSao3tYdC4HvGjsQ3w2VYEDanQA"
 
 # ── CSS ───────────────────────────────────────────────────────────────────────
 st.markdown("""
@@ -236,8 +235,9 @@ Actions: When asked to DO something, use your tools and confirm the action."""
 @st.cache_resource
 def get_adk_runner():
     try:
-        os.environ.pop("GOOGLE_GENAI_USE_VERTEXAI", None)
-        os.environ["GEMINI_API_KEY"] = "AQ.Ab8RN6Iduvz_mKzCqGizBfndSao3tYdC4HvGjsQ3w2VYEDanQA"
+        os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "TRUE"
+        os.environ["GOOGLE_CLOUD_PROJECT"] = GCP_PROJECT
+        os.environ["GOOGLE_CLOUD_LOCATION"] = GCP_LOCATION
         
         # Convert to ADK FunctionTools
         agent_tools = [
@@ -249,7 +249,7 @@ def get_adk_runner():
         ]
         
         agent = LlmAgent(
-            model='gemini-2.0-flash',
+            model='gemini-2.5-flash',
             name='wca_agent',
             instruction=SYSTEM_PROMPT,
             tools=agent_tools
